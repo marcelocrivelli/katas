@@ -4,7 +4,10 @@
   "Escribir una funcion que retorne solamente los numeros impares de
    una secuencia"
   [s]
+  (filter odd? s)
   )
+
+
 
 (defn nil-key
   "Escribir una funcion que dada una clave y un mapa, devuelva true, solamente si el mapa
