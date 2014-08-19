@@ -7,8 +7,6 @@
   (filter odd? s)
   )
 
-
-
 (defn nil-key
   "Escribir una funcion que dada una clave y un mapa, devuelva true, solamente si el mapa
    contiene una entrada con esa clave, y su valor es nil"
@@ -18,7 +16,10 @@
   "Escribir una funcion que cree una lista de enteros en un rango dado.
    Restricciones: range"
   [start end]
-  )
+  (def salida ())
+  (dotimes [repetir (- end start)](def salida (cons (inc repetir) salida)))
+  (def salida (sort salida))
+  salida  )
 
 (defn compress-sequence
   "Escribir una funcion que elimine los duplicados consecutivos
