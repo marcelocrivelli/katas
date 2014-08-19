@@ -17,7 +17,7 @@
    Restricciones: range"
   [start end]
   (def salida ())
-  (dotimes [repetir (- end start)](def salida (cons (inc repetir) salida)))
+  (dotimes [repetir (- end start)](def salida (cons (+ repetir start) salida)))
   (def salida (sort salida))
   salida  )
 
