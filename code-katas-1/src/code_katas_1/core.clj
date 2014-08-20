@@ -31,6 +31,7 @@
   "Escribir una funcion que elimine los duplicados consecutivos
    de una secuencia"
   [s]
+
   )
 
 (defn max-value
@@ -56,6 +57,7 @@
   "Escribir una funcion que reciba un string y devuelva un nuevo string conteniendo
    solamente las mayusculas."
   [text]
+  (apply str(filter  (fn[caracter](Character/isUpperCase caracter)) text))
   )
 
 (defn find-truth
