@@ -43,7 +43,11 @@
 (defn split-two
   "Escribir una funcion que parta una secuencia en dos partes
    Restricciones: split-at"
-  [length s]
+  [length s] (if (list? s)
+    (into  (cons (drop length s) '()) (cons (take length s) '()) )
+    (if (vector? s)
+      (into  (apply vector(cons (apply vector (take length s)) '[])) (apply vector(cons (apply vector (drop length s)) '[])) )
+      nil))
   )
 
 (defn inter-two
