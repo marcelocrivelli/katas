@@ -31,7 +31,15 @@
   "Escribir una funcion que elimine los duplicados consecutivos
    de una secuencia"
   [s]
-
+  (if (string? s)
+    (when-let [[primero & resto] s] 
+      (if (= primero (first resto)) 
+        (compress-sequence resto) 
+        (apply str(cons primero (compress-sequence resto)))))
+    (when-let [[primero & resto] s] 
+      (if (= primero (first resto)) 
+        (compress-sequence resto) 
+        (cons primero (compress-sequence resto)))))
   )
 
 (defn max-value
@@ -43,7 +51,8 @@
 (defn split-two
   "Escribir una funcion que parta una secuencia en dos partes
    Restricciones: split-at"
-  [length s] (if (list? s)
+  [length s]
+  (if (list? s)
     (into  (cons (drop length s) '()) (cons (take length s) '()) )
     (if (vector? s)
       (into  (apply vector(cons (apply vector (take length s)) '[])) (apply vector(cons (apply vector (drop length s)) '[])) )
@@ -55,6 +64,7 @@
    luego el segundo de cada una, luego el tercero, etc.
    Restricciones: interleave"
   [s1 s2]
+  (mapcat vector s1 s2) 
   )
 
 (defn retrieve-caps
