@@ -47,7 +47,9 @@
   "Escribir una funcion que reciba un numero variable de parametros
    y retorne el que tenga el valor mayor
    Restricciones: max y max-key"
-  [& args])
+  [& args]
+  (last (sort args)) ; se ordena la lista de argumentos de menor a mayor y se devuelve el último elemento
+  )
 
 (defn split-two
   "Escribir una funcion que parta una secuencia en dos partes
@@ -93,4 +95,5 @@
    construya un mapa a partir de ellos.
    Restricciones: zipmap"
   [k v]
+  (into {} (map vector k v))  ; map forma una lista de vectores donde estos contienen clave y valor, luego al aplicarle into a {} se insertan los pares clave y valor que hay en cada vector formando así un mapa
   )
