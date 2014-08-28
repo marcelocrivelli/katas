@@ -1,0 +1,2 @@
+cmdhistory=["(when-let [[a & b] [1 2 3]] b)" "(when-let [[a & b] [1 2 3]] a)" "(when-let [[a] [1 2 3]] a)" "(when-let [a [1 2 3]] a)" "(let [a [1 2 3]] a)" "(when-let [a [nil]] a)" "(first [])" "(when-let [a [1 2 3]])" "(rest '(1))"]
+eclipse.preferences.version=1
