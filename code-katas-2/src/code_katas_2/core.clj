@@ -12,6 +12,16 @@
   "Dado un numero cualquiera de secuencias, cada una ya ordenada de menor a mayor, encontrar el numero
    mas chico que aparezca en todas las secuencias, las secuencias pueden ser infinitas."
   [& seqs]
+  ;(take 1(reduce (fn [a b] (filter (set a) b)) seq)) 
+  ;(clojure.set/intersection seqs)
+  ;(take 1 (lazy-seq (reduce clojure.set/intersection seq)))
+  ;(if (not (empty? (rest seqs)))
+  ; (filter (set (first seqs)) (set (search(rest seqs))))
+  ; (first seqs)
+  ; )
+  ;(when-let [[primero & resto] seqs]
+  ; (filter (set primero) (search resto)))
+  (first (reduce (fn ([a] a) ([a b] (filter (set a) (set b)))) seqs))
   )
 
 
