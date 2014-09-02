@@ -12,16 +12,11 @@
   "Dado un numero cualquiera de secuencias, cada una ya ordenada de menor a mayor, encontrar el numero
    mas chico que aparezca en todas las secuencias, las secuencias pueden ser infinitas."
   [& seqs]
-  ;(take 1(reduce (fn [a b] (filter (set a) b)) seq)) 
-  ;(clojure.set/intersection seqs)
-  ;(take 1 (lazy-seq (reduce clojure.set/intersection seq)))
-  ;(if (not (empty? (rest seqs)))
-  ; (filter (set (first seqs)) (set (search(rest seqs))))
-  ; (first seqs)
-  ; )
-  ;(when-let [[primero & resto] seqs]
-  ; (filter (set primero) (search resto)))
-  (first (reduce (fn ([a] a) ([a b] (filter (set a) (set b)))) seqs))
+  (first (reduce                        ; toma el primer elemento del resultado de aplicar la funcion al primer elemento, que como es solo un parametro devuelve este mismo
+           (fn ([a] a)                  ; luego aplica la funcion al segundo con lo que retorno de la llamada del primero y asi sucesivamente hasta obtener la intersección de todas las secuencias.
+             ([a b] 
+               (filter (set a) b)))     ; setea la secuencia a y para cada valor de esta filtra la secuencia b, quedando asi la intersección de las secuencias pero sin valores repetidos ya que el set los transforma en valores no iguales a ninguno de ellos.
+           seqs))
   )
 
 
@@ -30,7 +25,16 @@
    retorne una nueva coleccion donde el valor es insertado intercalado cada dos argumentos
    que cumplan el predicado"
   [predicado valor secuencia]
+  (lazy-seq (if (or (= (count secuencia) 0) (= (count secuencia) 1)) ; si la secuencia tiene un elemento o ninguno devuelve la secuencia misma
+              secuencia
+              (if (predicado (first secuencia) (second secuencia))   ; sino, verifica si los dos primeros elementos de la secuencia cumplean el predicado   
+                (concat (list (first secuencia) valor) (intercalar predicado valor (rest secuencia))) ;concatena  el primer elemento con su valor con la llamada recursiva a intercalar pero con el resto de la secuencia
+                (conj (intercalar predicado valor (rest secuencia)) (first secuencia)) ;sino agrega el primer elemento al comienzo seguido por la llamada recursiva a intercalar pero con el resto de la secuencia
+                )
+              )
+            )   
   )
+  
 
 
 (defn tartamudeo
