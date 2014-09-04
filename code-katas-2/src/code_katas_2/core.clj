@@ -4,7 +4,7 @@
 (defn unpartial
   "Escribir una funcion que acepte una funcion parcial con cantidad de argumentos desconocida,
    retornar una funcion equivalente de n argumentos"
-  [f]  
+  [f]
   )
 
 
@@ -12,12 +12,14 @@
   "Dado un numero cualquiera de secuencias, cada una ya ordenada de menor a mayor, encontrar el numero
    mas chico que aparezca en todas las secuencias, las secuencias pueden ser infinitas."
   [& seqs]
-  (first (reduce                        ; toma el primer elemento del resultado de aplicar la funcion al primer elemento, que como es solo un parametro devuelve este mismo
-           (fn ([a] a)                  ; luego aplica la funcion al segundo con lo que retorno de la llamada del primero y asi sucesivamente hasta obtener la intersección de todas las secuencias.
-             ([a b] 
-               (filter (set a) b)))     ; setea la secuencia a y para cada valor de esta filtra la secuencia b, quedando asi la intersección de las secuencias pero sin valores repetidos ya que el set los transforma en valores no iguales a ninguno de ellos.
-           seqs))
-  )
+  (if (= (count (set (map first seqs))) 1)  ; si la cantidad de elementos del seteo de la secuencia obtenida al aplicar map de first (osea obtener todos los primeros elementos de cada secuencia) es igual a 1.
+    (first (sort (map first seqs)))         ; se devuelve el primer elemento de ordenar de menor a mayor la secuencia obtenida al aplicar map de first (osea obtener todos los primeros elementos de cada secuencia)
+    (apply search (map (fn [a]              ; se llama recursivamente a search con el resultado de map de la función
+                       (if (= (first a) (first (sort (map first seqs)))) ; la función verifica para una secuencia dada, si su primer elemento es igual al primero de la secuencia de primeros ordenada de seqs.
+                         (rest a)            ; devuelve resto de la secuencia (osea sin el primero)
+                         a))                 ; sino devuelve toda la secuencia.
+                       seqs)))
+ )
 
 
 (defn intercalar
