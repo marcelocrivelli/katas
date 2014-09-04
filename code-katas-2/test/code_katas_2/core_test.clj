@@ -29,7 +29,6 @@
                       (filter #(zero? (bit-and % (dec %))) (range))
                       (iterate inc 20)))))
 
-
 (deftest intercalar
   (is (= '(2 :menor 6 :menor 9 4 3) (k/intercalar < :menor [2 6 9 4 3])))
   (is (= '(8) (k/intercalar > :mayor [8])))

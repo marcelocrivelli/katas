@@ -4,7 +4,7 @@
 (defn unpartial
   "Escribir una funcion que acepte una funcion parcial con cantidad de argumentos desconocida,
    retornar una funcion equivalente de n argumentos"
-  [f]
+  [f]  
   )
 
 
@@ -44,4 +44,12 @@
    La funcion debe aceptar una secuencia inicial de numeros, y devolver una secuencia infinita de compresiones, donde
    cada nuevo elemento es el elemento anterior comprimido."
   [secuencia]
+  
+  (defn auxiliar [veces seq] 
+    (when-let [[primero & resto] seq]  
+      (if (= primero (first resto)) 
+        (auxiliar (inc veces) resto) 
+        (apply vector (concat (list veces) (concat (list primero) (auxiliar 1 resto))))))) 
+  
+  (rest (iterate (partial auxiliar 1) secuencia))
   )
