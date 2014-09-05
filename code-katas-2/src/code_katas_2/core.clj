@@ -5,6 +5,12 @@
   "Escribir una funcion que acepte una funcion parcial con cantidad de argumentos desconocida,
    retornar una funcion equivalente de n argumentos"
   [f]
+  (partial (fn [f & args]                ; función parcial fn con argumento precargado f, luego los argumentos se pueden pasar hacieno ((unpartial función ) argumentos)
+           (let [resultado (f (first args))]  ; "resultado" es el resultado de aplicar f al primer argumento.
+             (if (fn? resultado)              ; si es una función
+               (recur resultado (rest args))  ; se sigue con el resto de los argumentos
+               resultado)))                   ; sino devuelve "resultado"
+         f)
   )
 
 
