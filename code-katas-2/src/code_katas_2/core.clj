@@ -53,11 +53,11 @@
    cada nuevo elemento es el elemento anterior comprimido."
   [secuencia]
   
-  (defn auxiliar [veces seq] 
-    (when-let [[primero & resto] seq]  
-      (if (= primero (first resto)) 
-        (auxiliar (inc veces) resto) 
-        (apply vector (concat (list veces) (concat (list primero) (auxiliar 1 resto))))))) 
+  (defn auxiliar [veces seq]   ; funcion auxiliar que devuelve un vector con el tartamudeo de esa secuencia.
+    (when-let [[primero & resto] seq]  ; se recorre la secuencia si primero y resto no son nulos 
+      (if (= primero (first resto))  ; si el primero es igual al segundo elemento
+        (auxiliar (inc veces) resto)  ; se llama recursivamente a auxiliar con la cantidad de veces incrementada y el resto de la secuencia
+        (apply vector (concat (list veces) (concat (list primero) (auxiliar 1 resto))))))) ; sino (son distintos), se concatena la cantidad de veces de ese valor con la llamada recursiva sobre el resto de la secuencia. 
   
-  (rest (iterate (partial auxiliar 1) secuencia))
+  (rest (iterate (partial auxiliar 1) secuencia)) ; se va aplicando iterate con la función auxiliar indefinidamente sobre la secuencia (el primer elemento no se considera debido a que es la seceuncia que se pasó por parámetro). 
   )
